@@ -7,13 +7,16 @@ import {
 env.allowLocalModels = false;
 
 const HAT_SCORE = 0.8;
+const CLASSIFIER_CONCEPTS = ["head", "hands", "hat"];
 
 // Reference the elements that we will need
 const status = document.getElementById("status");
 const messageElement = document.getElementById("message");
+const webcamContainer = document.getElementById("webcam-container");
+const webcamStarter = document.getElementById("start-webcam");
 
 // Create a new object detection pipeline
-status.textContent = "Loading model...";
+status.textContent = "Cargando modelo (tarda un poco)";
 messageElement.textContent = "Un momentito...";
 // const detector = await pipeline("object-detection", "Xenova/detr-resnet-50");
 let classifier;
@@ -25,14 +28,20 @@ async function initializeApp() {
       "Xenova/clip-vit-base-patch32"
     );
 
+    console.log("webcam-container");
+    status.textContent = "";
+    webcamStarter.style.display = "block";
+
     // Una vez que el clasificador está cargado, inicia el procesamiento de la webcam
-    initWebcam();
+    //initWebcam();
   } catch (error) {
     console.error("Error al cargar el clasificador:", error);
   }
 }
 
 function initWebcam() {
+  webcamContainer.style.display = "flex";
+  webcamStarter.style.display = "none";
   const webcamElement = document.getElementById("webcam");
   const canvasElement = document.getElementById("canvas");
   const context = canvasElement.getContext("2d");
@@ -81,13 +90,10 @@ function initWebcam() {
 
 document.addEventListener("DOMContentLoaded", initializeApp);
 
-status.textContent = "Ready";
-
 // Detect objects in the image
 async function classificator(img) {
-  status.textContent = "Analysing...";
-  //const output = await classifier(img.src, ["head", "hands", "hat"]);
-  const output = await classifier(img.toDataURL(), ["head", "hands", "hat"]);
+  status.textContent = "Analizando imagen...";
+  const output = await classifier(img.toDataURL(), CLASSIFIER_CONCEPTS);
   status.textContent = "";
   console.log(output);
   showDetectorMessage(output);
@@ -122,8 +128,4 @@ function isHatScoreHighest(items) {
   );
 }
 
-document
-  .getElementById("request-webcam-permission")
-  .addEventListener("click", () => {
-    initWebcam();
-  });
+webcamStarter.addEventListener("click", initWebcam);

@@ -4,19 +4,39 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transformers.js - Object Detection demo</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎩</text></svg>"
+    />
+    <title>Hat Checker - Hecho con 🧡 por webreactiva.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <main class="container">
-      <h1>Reglas de Etiqueta ;)</h1>
-      <div id="message" class="message"></div>
-      <video id="webcam" autoplay></video>
-      <canvas id="canvas" style="display: none"></canvas>
-      <div id="image-container"></div>
+      <h1>Hat Checker 🤠</h1>
+      <div id="webcam-container" class="webcam-container" style="display: none">
+        <div id="message" class="message"></div>
+        <video id="webcam" autoplay></video>
+        <canvas id="canvas" style="display: none"></canvas>
+        <div id="image-container"></div>
+      </div>
+      <button id="start-webcam" class="button" style="display: none">
+        Arranca la Webcam
+      </button>
       <p id="status"></p>
-      <button id="request-webcam-permission">Solicitar permiso webcam</button>
     </main>
+    <footer class="footer">
+      Hecho con 🧡 por webreactiva.com ·
+      <a href="https://webreactiva.dev/newsletter" target="_blank"
+        >Suscríbete a la newsletter</a
+      >
+    </footer>
     <script src="/main.js" type="module"></script>
   </body>
 </html>
